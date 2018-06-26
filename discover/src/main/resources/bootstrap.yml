@@ -1,0 +1,40 @@
+# Configure this Discovery Server
+eureka:
+ datacenter: i3
+ client:
+  region: DC
+  registerWithEureka: false
+  fetchRegistry: false    
+---
+spring:
+ profile: discovery
+ application: 
+  name: i3-cloud-discovery
+server:
+  port: 11000
+  
+eureka:
+ client:
+  serverUrl:
+   defaultZone: http://localhost:11000/eureka
+
+
+---
+spring:
+  profiles: peer1
+eureka:
+  instance:
+    hostname: peer1
+  client:
+    serviceUrl:
+      defaultZone: http://peer2/eureka/
+
+---
+spring:
+  profiles: peer2
+eureka:
+  instance:
+    hostname: peer2
+  client:
+    serviceUrl:
+      defaultZone: http://peer1/eureka/

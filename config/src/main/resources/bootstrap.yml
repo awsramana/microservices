@@ -1,0 +1,27 @@
+spring:
+ application:
+  name: i3-config-server
+  
+server:
+ port: 11001
+---
+spring:
+ cloud:
+  config:
+   server:
+    git:
+     uri: https://github.com/awsramana/cloud.git
+     clone-on-start: true
+     force-pull: true
+     basedir: /Users/ramana/Documents/dev/msconfig/config
+     username: awsramana
+     password: Sivareddy19
+
+#management.security.enabled: false 
+# Discovery Server Access
+eureka:
+ client:
+  registerWithEureka: true
+  fetchRegistry: true    
+  serviceUrl:
+   defaultZone: http://localhost:11000/eureka/
