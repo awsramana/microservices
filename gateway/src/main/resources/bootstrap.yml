@@ -1,12 +1,12 @@
 # Application config
 
 server:
- port: 9082
- contextPath: /services 
+ port: 9081
+ contextPath: /gw 
 
 spring:
  application:
-  name: i3-services
+  name: i3-gateway
  profiles:
   active: dev 
 spring.cloud.config.uri: http://localhost:11001
