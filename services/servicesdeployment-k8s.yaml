@@ -1,0 +1,41 @@
+apiVersion: v1
+kind: Service
+metadata:
+  name: i3-services
+spec:
+  selector:
+    app: i3-services
+  ports:
+  - protocol: TCP
+    port: 9082
+    nodePort: 30023
+    targetPort: 9082
+  type: NodePort
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: i3-services
+spec:
+  selector:
+      matchLabels:
+        app: i3-services
+  replicas: 1
+  template:
+    metadata:
+      labels:
+        app: i3-services
+    spec:
+      containers:
+        - name: i3-config
+          image: awsramana/i3-services:latest
+          imagePullPolicy: Always
+          resources:
+            requests:
+              cpu: 100m
+              memory: 100Mi
+          env:
+            - name: GET_HOSTS_FROM
+              value: dns
+          ports:
+            - containerPort: 9082

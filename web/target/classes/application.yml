@@ -1,5 +1,0 @@
-server:
- contextPath: /web 
-# management.endpoints.web.exposure.include: hystrix.stream, info, health
-spring.redis.host: localhost
-spring.redis.port: 6379

@@ -1,40 +1,42 @@
 # Configure this Discovery Server
+server:
+  port: "${discovery.port:11000}"
 eureka:
  datacenter: i3
  client:
   region: DC
   registerWithEureka: false
-  fetchRegistry: false    
+  fetchRegistry: false   
+ server:
+  enableSelfPreservation: false
+  waitTimeInMsWhenSyncEmpty: 0 
 ---
 spring:
- profile: discovery
+ profiles: discovery
  application: 
   name: i3-cloud-discovery
-server:
-  port: 11000
-  
+
 eureka:
  client:
   serverUrl:
-   defaultZone: http://localhost:11000/eureka
-
+   defaultZone: ${eureka.peer.host:http://localhost:11000/eureka}
 
 ---
 spring:
   profiles: peer1
 eureka:
   instance:
-    hostname: peer1
+    hostname: 8761
   client:
     serviceUrl:
-      defaultZone: http://peer2/eureka/
+      defaultZone: http://${eureka.peer:localhost}:8762/eureka/
 
 ---
 spring:
   profiles: peer2
 eureka:
   instance:
-    hostname: peer2
+    hostname: 8762
   client:
     serviceUrl:
-      defaultZone: http://peer1/eureka/
+      defaultZone: http://${eureka.peer:localhost}:8761/eureka/

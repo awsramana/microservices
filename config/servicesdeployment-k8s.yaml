@@ -1,0 +1,41 @@
+apiVersion: v1
+kind: Service
+metadata:
+  name: i3-config
+spec:
+  selector:
+    app: i3-config
+  ports:
+  - protocol: TCP
+    port: 11001
+    nodePort: 30022
+    targetPort: 11001
+  type: NodePort
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: i3-config
+spec:
+  selector:
+      matchLabels:
+        app: i3-config
+  replicas: 1
+  template:
+    metadata:
+      labels:
+        app: i3-config
+    spec:
+      containers:
+        - name: i3-config
+          image: awsramana/i3-config:latest
+          imagePullPolicy: Always
+          resources:
+            requests:
+              cpu: 100m
+              memory: 100Mi
+          env:
+            - name: GET_HOSTS_FROM
+              value: dns
+          ports:
+            - containerPort: 11001
