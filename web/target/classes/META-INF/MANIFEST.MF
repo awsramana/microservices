@@ -3,8 +3,8 @@ Implementation-Title: web
 Implementation-Version: 0.0.1-SNAPSHOT
 Built-By: ramana
 Implementation-Vendor-Id: com.i3
-Build-Jdk: 1.8.0_171
+Build-Jdk: 1.8.0_191
 Implementation-URL: https://projects.spring.io/spring-boot/#/spring-bo
- ot-starter-parent/web
+ ot-starter-parent/i3-web
 Created-By: Maven Integration for Eclipse
 

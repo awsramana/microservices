@@ -15,7 +15,7 @@ spring:
    max-attempts: 15 
  cloud:
   config:
-   uri: http://192.168.64.8:30022
+   uri: http://192.168.99.100:30022
  #  fail-fast: falses
  #  enabled: false
  #  discovery:
@@ -28,5 +28,5 @@ eureka:
   registerWithEureka: true
   fetchRegistry: true    
   serviceUrl:
-   defaultZone: ${eureka.url:http://192.168.64.8:30020/eureka/}
+   defaultZone: ${eureka.url:http://192.168.99.100:30020/eureka/}
  

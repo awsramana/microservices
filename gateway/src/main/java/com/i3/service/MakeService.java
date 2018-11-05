@@ -11,7 +11,7 @@ public class MakeService {
 	
 	@HystrixCommand(fallbackMethod="defaultMessage")
 	public String message(String userName) {
-		String SERVICE_URL="http://192.168.64.8:30023/message/{userName}";
+		String SERVICE_URL="http://192.168.99.100:30023/message/{userName}";
 		return new RestTemplate().getForObject(SERVICE_URL, String.class, userName);
 	}
 	public String defaultMessage(String userName) {

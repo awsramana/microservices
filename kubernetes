@@ -1,0 +1,175 @@
+minikube dashboard
+minikube stop
+minikube start
+minikube addons enable ingress
+
+
+kubectl run hello-minikube --image=k8s.gcr.io/echoserver:1.10 --port=8080
+deployment.apps/hello-minikube created
+kubectl expose deployment hello-minikube --type=NodePort
+service/hello-minikube exposed
+curl $(minikube service hello-minikube ?url)
+kubectl delete services hello-minikube
+kubectl delete deployment hello-minikube
+kubectl expose deployment/hello-minikube --type="NodePort" --port 8080
+kubectl describe services/hello-minikube
+
+export NODE_PORT=$(kubectl get services/hello-minikube -o go-template='{{(index .spec.ports 0).nodePort}}?)
+
+kubectl proxy --port=8080
+
+curl $(minikube ip):$NODE_PORT
+
+curl -X GET http://$(minikube ip):30021/hello/1
+curl -X GET http://$(minikube ip):30021/orders
+curl -X GET http://$(minikube ip):30021/food/items
+
+curl -X GET http://$(minikube ip):30021/available -w "\n" 
+
+curl -X GET http://$(minikube ip):30021/food/items |jq .
+curl -d "s" -H "Content-Type: text/plain" -X POST http://$(minikube ip):30021/food/item  |jq .
+
+kubectl logs -f hello-boot-docker-67675976b5-tpqkl
+
+kubernetes services, deployment
+================================
+-- web
+=========
+http://192.168.64.8:30080
+./mvnw install dockerfile:build
+docker login
+docker push awsramana/i3-web
+kubectl create -f servicesdeployment-k8s.yaml
+kubectl delete services i3-web
+kubectl delete deployments i3-web
+kubectl create -f servicesdeployment-k8s.yaml
+
+--discover
+=========
+http://192.168.64.7:30020
+sudo ./mvnw install dockerfile:build
+sudo docker login
+sudo docker push awsramana/i3-discover
+kubectl create -f servicesdeployment-k8s.yaml
+kubectl delete services i3-discover
+kubectl delete deployments i3-discover
+kubectl create -f servicesdeployment-k8s.yaml
+
+http://192.168.64.7:30020
+
+==========
+
+--Config
+=========
+http://192.168.64.7:30022
+sudo ./mvnw install dockerfile:build
+sudo docker login
+sudo docker push awsramana/i3-config
+kubectl create -f servicesdeployment-k8s.yaml
+kubectl delete services i3-config
+kubectl delete deployments i3-config
+kubectl create -f servicesdeployment-k8s.yaml
+
+curl -X GET http://192.168.64.7:30022/dev/env
+==========
+
+--Gateway
+=========
+http://192.168.64.7:30024
+sudo ./mvnw install dockerfile:build
+sudo docker login
+sudo docker push awsramana/i3-gateway
+kubectl create -f servicesdeployment-k8s.yaml
+kubectl delete services i3-gateway
+kubectl delete deployments i3-gateway
+kubectl create -f servicesdeployment-k8s.yaml
+
+curl -X GET http://$(minikube ip):30024/message/ramana
+==========
+
+DB Service
+=========
+http://192.168.64.7:30023
+sudo ./mvnw install dockerfile:build
+sudo docker login
+sudo docker push awsramana/i3-db-services
+kubectl create -f servicesdeployment-k8s.yaml
+
+
+--Service
+=========
+http://192.168.64.7:30023
+sudo ./mvnw install dockerfile:build
+sudo docker login
+sudo docker push awsramana/i3-services
+kubectl create -f servicesdeployment-k8s.yaml
+kubectl delete services i3-services
+kubectl delete deployments i3-services
+kubectl create -f servicesdeployment-k8s.yaml
+
+curl -X GET http://$(minikube ip):30023/message/ramana
+==========
+
+--Hello world Spring boot
+======================
+
+sudo ./mvnw install dockerfile:build
+sudo docker login
+sudo docker push awsramana/hello.dockers
+kubectl create -f servicesdeployment-k8s.yaml
+
+kubectl delete services hello-boot-docker
+kubectl delete deployments hello-boot-docker
+kubectl create -f servicesdeployment-k8s.yaml
+
+
+kubectl delete service -l run=hello-minikube
+kubectl commands:
+
+kubectl get - list resources
+kubectl describe - show detailed information about a resource
+kubectl logs - print the logs from a container in a pod
+kubectl exec - execute a command on a container in a pod
+
+kubectl create -f /Users/ramana/Documents/dev/kubernetes/namespace-prod.json
+kubectl get namespaces
+kubectl get pods --all-namespaces
+
+https://github.com/arun-gupta/kubernetes-java-sample
+https://hackernoon.com/deploying-java-applications-with-kubernetes-and-an-api-gateway-fc471644bea7
+
+
+kubectl cluster-info
+kubectl config set-context $(kubectl config current-context) --namespace=dev
+kubectl config view
+kubectl config use-context dev
+kubectl config current-context
+
+
+
+kubectl delete service demo-frontend
+kubectl delete deployment demo-frontend
+kubectl delete service demo-backend
+kubectl delete deployment demo-backend
+
+docker login
+cat ~/.docker/config.json
+
+
+On Oct 16, 2018, at 8:03 AM, Ramana Kat <aws.ramana@gmail.com> wrote:
+
+minikube start --logtostderr --v=3 --vm-driver=hyperkit
+
+ramanas-MacBook-Air:kubernetes ramana$ rm -rf $HOME/.minikube
+ramanas-MacBook-Air:kubernetes ramana$ minikube start --logtostderr --v=3 --vm-driver=hyperkit
+kubectl proxy --port=8080
+
+Minikube with hyperkit
+brew install jq
+        https://blog.arkey.fr/2018/06/18/minikube-with-hyperkit/
+
+
+kubectl expose deployment hostnames --port=80 --target-port=30021 exposed
+kubectl expose deployment hostnames --port=80 --target-port=30021 ervice/hostnames exposed
+
+http://127.0.0.1:51481/api/v1/namespaces/kube-system/services/http:kubernetes-dashboard:/proxy/
