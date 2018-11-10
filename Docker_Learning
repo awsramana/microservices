@@ -1,0 +1,43 @@
+docker build -t awsramana/hello-world:v1 -f Dockerfile .
+docker run -it --rm=true awsramana/hello-world:v1
+docker login --username=awsramana 
+docker push awsramana/hello-world:v1
+
+
+
+Srping boot
+------------
+
+./mvnw install dockerfile:build
+docker run -p 8080:8080 -t awsramana/hello.dockers
+docker run -p 8081:8080 -t awsramana/hello.dockers
+docker pull awsramana/hello.dockers
+docker push awsramana/hello.dockers
+
+kubectl apply -f hellodockers.yaml
+kubectl apply -f hellodockers-rc.yaml
+kubectl get svc
+kubectl get pods
+
+
+docker login
+cat ~/.docker/config.json
+kubectl create secret docker-registry regcred --docker-server=awsramana --docker-username=awsramana --docker-password=Sivareddy19 --docker-email=aws.ramana@gmail.com
+kubectl get secret regcred --output=yaml
+kubectl get secret regcred --output="jsonpath={.data.\.dockerconfigjson}" | base64 --decode
+
+debugging
+========
+ kubectl logs -f hello-boot-docker-9b459cccf-tpdds
+
+
+docker login --username=awsramana --email=aws.ramana@gmail.com
+docker login -u="$DOCKER_USERNAME" -p="$DOCKER_PASSWORD"
+
+
+jar cmvf META-INF/MANIFEST.MF HelloWorld.jar  HelloWorld.class
+
+https://store.docker.com/community/images/awsramana/helloworld
+
+
+https://stackoverflow.com/questions/41984399/denied-requested-access-to-the-resource-is-denied-docker
