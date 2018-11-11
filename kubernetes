@@ -33,6 +33,42 @@ kubectl logs -f hello-boot-docker-67675976b5-tpqkl
 
 kubernetes services, deployment
 ================================
+
+I3-config map
+=============
+https://docs.okd.io/latest/dev_guide/configmaps.html
+
+kubectl create configmap i3config --from-file=i3configmap.yml
+kubectl create configmap game-i3config-dir  --from-file=i3data
+kubectl describe configmaps game-i3config-dir
+kubectl get configmaps i3config -o yaml
+kubectl create configmap game-i3config-multi --from-file=i3data/game.properties --from-file=i3data/ui.properties
+
+kubectl create configmap special-config \
+    --from-literal=special.how=very \
+    --from-literal=special.type=charm
+kubectl get configmaps special-config -o yaml
+
+kubectl create configmap i3envconfiglog --from-file=i3logconfig.yml 
+kubectl create -f i3configvolumepod.yml 
+
+kubectl create configmap spring-boot-configmaps-demo --from-literal=greeter.prefix="Hello kubernetes"
+kubectl get configmap
+kubectl delete configmap game-i3config-multi 
+-- i3-configmap
+=========
+http://192.168.64.8:30080
+./mvnw install dockerfile:build
+docker login
+docker push awsramana/i3-configmap
+kubectl create -f servicesdeployment-k8s.yaml
+kubectl delete pods i3-configmap
+kubectl delete services i3-configmap
+kubectl delete deployments i3-configmap
+
+kubectl create configmap spring-app-config --from-file=src/main/resources/application.properties
+kubectl exec i3-configmap-6577ddb888-wm985 -- cat /deployments/config/game.properties
+
 -- web
 =========
 http://192.168.64.8:30080
