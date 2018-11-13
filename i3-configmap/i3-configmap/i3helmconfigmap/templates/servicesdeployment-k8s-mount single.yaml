@@ -1,0 +1,53 @@
+apiVersion: v1
+kind: Service
+metadata:
+  name: i3-configmap
+spec:
+  selector:
+    app: i3-configmap
+  ports:
+  - protocol: TCP
+    port: 8080
+    nodePort: 30031
+    targetPort: 8080
+  type: NodePort
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: i3-configmap
+spec:
+  selector:
+      matchLabels:
+        app: i3-configmap
+  replicas: 1
+  template:
+    metadata:
+      labels:
+        app: i3-configmap
+    spec:
+      containers:
+        - name: i3-configmap
+          image: awsramana/i3-configmap:latest
+          imagePullPolicy: Always
+          ports:
+            - containerPort: 8080
+          env:
+            - name: GET_HOSTS_FROM
+              value: dns
+            - name: GREETING_PREFIX
+              valueFrom:
+                configMapKeyRef:
+                  name: spring-boot-configmaps-demo
+                  key: greeter.prefix     
+          volumeMounts:
+            - name: application-config
+              mountPath: "/deployments/config"
+              readOnly: true
+      volumes:
+        - name: application-config
+          configMap:
+            name: spring-app-config
+            items:
+              - key: application.properties
+                path: application.properties 

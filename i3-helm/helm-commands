@@ -1,0 +1,15 @@
+
+https://docs.helm.sh
+
+helm create i3-workflow
+helm package i3-workflow
+helm install ./i3-workflow-0.1.0.tgz
+
+
+ i3helmconfigmap
+=====================
+helm create i3helmconfigmap
+helm package i3helmconfigmap
+helm install ./i3helmconfigmap-0.1.0.tgz
+
+http://192.168.64.12:30031/greet/SOWMIT

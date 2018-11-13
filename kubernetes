@@ -1,8 +1,15 @@
+Minikube
+==========
 minikube dashboard
 minikube stop
 minikube start
 minikube addons enable ingress
 
+rm -rf $HOME/.minikube
+minikube start --logtostderr --v=3 --vm-driver=hyperkit
+
+
+kubectl get pod -a
 
 kubectl run hello-minikube --image=k8s.gcr.io/echoserver:1.10 --port=8080
 deployment.apps/hello-minikube created
@@ -56,6 +63,9 @@ kubectl create configmap spring-boot-configmaps-demo --from-literal=greeter.pref
 kubectl get configmap
 kubectl delete configmap game-i3config-multi 
 -- i3-configmap
+
+http://192.168.64.12:30031/greet/SOWMIT
+
 =========
 http://192.168.64.8:30080
 ./mvnw install dockerfile:build
@@ -66,8 +76,10 @@ kubectl delete pods i3-configmap
 kubectl delete services i3-configmap
 kubectl delete deployments i3-configmap
 
+kubectl create configmap spring-boot-configmaps-demo --from-literal=greeter.prefix="Hello kubernetes"
 kubectl create configmap spring-app-config --from-file=src/main/resources/application.properties
 kubectl exec i3-configmap-6577ddb888-wm985 -- cat /deployments/config/game.properties
+kubectl exec i3-configmap-5d678fd5bc-xkhwd -- cat /deployments/config/gamapplicatione.properties
 
 -- web
 =========
@@ -196,8 +208,8 @@ On Oct 16, 2018, at 8:03 AM, Ramana Kat <aws.ramana@gmail.com> wrote:
 
 minikube start --logtostderr --v=3 --vm-driver=hyperkit
 
-ramanas-MacBook-Air:kubernetes ramana$ rm -rf $HOME/.minikube
-ramanas-MacBook-Air:kubernetes ramana$ minikube start --logtostderr --v=3 --vm-driver=hyperkit
+rm -rf $HOME/.minikube
+minikube start --logtostderr --v=3 --vm-driver=hyperkit
 kubectl proxy --port=8080
 
 Minikube with hyperkit
