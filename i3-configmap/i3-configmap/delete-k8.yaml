@@ -1,0 +1,2 @@
+kubectl delete deployments i3-configmap
+kubectl delete service i3-configmap

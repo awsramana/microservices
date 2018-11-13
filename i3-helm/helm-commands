@@ -1,6 +1,7 @@
 
 https://docs.helm.sh
 
+https://kubernetes.io/blog/2016/10/helm-charts-making-it-simple-to-package-and-deploy-apps-on-kubernetes/
 helm create i3-workflow
 helm package i3-workflow
 helm install ./i3-workflow-0.1.0.tgz
@@ -8,8 +9,17 @@ helm install ./i3-workflow-0.1.0.tgz
 
  i3helmconfigmap
 =====================
+
 helm create i3helmconfigmap
 helm package i3helmconfigmap
 helm install ./i3helmconfigmap-0.1.0.tgz
+
+helm list
+
+NAME                	REVISION	UPDATED                 	STATUS  	CHART                	APP VERSION	NAMESPACE
+bulging-waterbuffalo	1       	Mon Nov 12 19:39:35 2018	DEPLOYED	i3helmconfigmap-0.1.0	1.0        	default  
+calling-possum      	1       	Mon Nov 12 22:02:59 2018	DEPLOYED	i3helmconfigmap-0.1.0	1.0        	default  
+
+helm delete calling-possum
 
 http://192.168.64.12:30031/greet/SOWMIT
