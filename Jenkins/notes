@@ -1,0 +1,6 @@
+java -jar jenkins.war --httpPort=8080
+http://localhost:8080
+
+Password: fac9ffdb41e1422d93adb36fd6312fba
+awsramana
+
