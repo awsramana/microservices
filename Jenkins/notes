@@ -7,8 +7,11 @@ awsramana
 Jenkin for discover
 =====================
 
+
 echo "WORKSPACE" :: $WORKSPACE
 echo "JENKINS_HOME" :: $JENKINS_HOME
+
+echo "Building the DISCOVER"
 
 cd $WORKSPACE/discover
 ./mvnw install dockerfile:build
@@ -18,6 +21,15 @@ kubectl delete services i3-discover || true
 kubectl delete deployments i3-discover || true
 kubectl create -f servicesdeployment-k8s.yaml
 
+echo "Building the CONFIG"
+cd $WORKSPACE/config
+./mvnw install dockerfile:build
+docker login
+docker push awsramana/i3-config
+kubectl create -f servicesdeployment-k8s.yaml
+kubectl delete services i3-config
+kubectl delete deployments i3-config
+kubectl create -f servicesdeployment-k8s.yaml
 
 
 
